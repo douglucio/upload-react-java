@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-UploadsApplication<uploads>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.com.rnd.uploads.UploadsApplication",
+            "projectName": "uploads",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

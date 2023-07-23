@@ -1,0 +1,53 @@
+version: '3.5'
+
+volumes:
+ pg-data:
+
+services:
+  postgres:
+    container_name: ${DB_HOST_NAME}
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+      - POSTGRES_DB=${POSTGRES_DB} #optional (specify default database instead of $POSTGRES_DB)
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5435:5432"
+    volumes:
+     - pg-data:/var/lib/postgresql/data
+     - type: tmpfs
+       target: /dev/shm
+    restart: unless-stopped
+    networks:
+    - rnd-network
+
+  # pgadmin:
+  #   container_name: pgadmin
+  #   image: dpage/pgadmin4:latest
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
+  #     - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PW}
+  #   ports:
+  #     - "5050:80"
+  #   restart: always
+  #   networks:
+  #   - rnd-network
+
+#  app:
+#   container_name: app-api
+#   image: app-api
+#   build: ./
+#   environment:
+#    - SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST_NAME}:${DB_HOST_PORT}/${POSTGRES_DB}
+#   ports:
+#    - "8080:8080"
+#   depends_on:
+#    - postgres
+#   networks:
+#    - rnd-network
+
+
+networks:
+  rnd-network:
+    driver: bridge
