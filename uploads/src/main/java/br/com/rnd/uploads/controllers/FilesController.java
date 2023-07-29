@@ -3,10 +3,12 @@ package br.com.rnd.uploads.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,5 +41,10 @@ public class FilesController {
     @GetMapping("files/list")
     public ResponseEntity<List<Files>> findAll() {
         return ResponseEntity.ok(this.service.findAll());
+    }
+
+    @GetMapping("files/list/{seach}")
+    public ResponseEntity<List<Files>> findByMusic( @PathVariable(required = true, name = "music") String music) {
+        return ResponseEntity.ok(this.service.findByMusic(music));
     }
 }

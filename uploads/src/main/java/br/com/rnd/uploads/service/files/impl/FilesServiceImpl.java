@@ -2,7 +2,9 @@ package br.com.rnd.uploads.service.files.impl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import br.com.rnd.uploads.models.Files;
@@ -12,6 +14,7 @@ import br.com.rnd.uploads.service.files.FilesService;
 
 @Service
 public class FilesServiceImpl implements FilesService {
+    static final String MESSAGE_NOT_FOUND = "There is no organization with the %s [%s] informed.";
 
     FilesRepository filesRepository;
 
@@ -50,6 +53,12 @@ public class FilesServiceImpl implements FilesService {
 
     public List<Files> findAll() {
         return this.filesRepository.findAll();
+    }
+
+    @Override
+    public List<Files> findByMusic(String music) {
+        return this.filesRepository
+                .findByMusic(music);
     }
 
 }

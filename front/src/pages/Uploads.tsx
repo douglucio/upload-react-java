@@ -33,7 +33,7 @@ const Uploads = () => {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }})
-                console.log(data);
+                console.log(response);
             }
 
             
